@@ -17,9 +17,9 @@ See more details here: https://ionicframework.com/docs Additionally, download jQ
 
 ## Run the project
 type following command:
-"""
+```
  ionic serve
-"""
+```
 
 ## About this project
 ### brief summary of the project
