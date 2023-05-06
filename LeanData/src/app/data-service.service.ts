@@ -45,10 +45,9 @@ export class DataService {
     this.expenseSubject.next([...expenses, expense]);
 
     const users = this.usersSubject.getValue();
-    const user = users.find((u) => u.id === expense.userId);
+    const user = users.find((u) => u === expense.user);
     if (user) {
       user.totalExpense += expense.cost;
-      //this.updateUser(user);
     }
 
     const summary = this.summarySubject.getValue();
@@ -59,22 +58,8 @@ export class DataService {
     summary[index].totalCost += expense.cost;
     this.summarySubject.next(summary);
   }
-
-  updateUser(updatedUser: User) {
-    const users = this.usersSubject.getValue();
-    const updatedUsers = users.map((user) =>
-      user.id === updatedUser.id ? updatedUser : user
-    );
-    this.usersSubject.next(updatedUsers);
-  }
-
+  
   updateExpense(updatedExpense: Expense, oldCost: number) {
-    const expenses = this.expenseSubject.getValue();
-    const updatedExpenses = expenses.map((expense) =>
-      expense.expenseId === updatedExpense.expenseId ? updatedExpense : expense
-    );
-    this.expenseSubject.next(updatedExpenses);
-
     const users = this.usersSubject.getValue();
     const user = users.find((u) => u.id === updatedExpense.userId);
     if (user) {
