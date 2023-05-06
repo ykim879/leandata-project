@@ -54,7 +54,7 @@ export class ExpenseTableComponent  implements OnInit {
   editExpense(expense: Expense, descriptionInput: IonInput, costInput: IonInput) {
     const description = (descriptionInput.value || '').toString().trim();
     const cost = costInput.value? Number(costInput.value) : null;
-    if (expense.userId !== -1 && description && cost) {
+    if (expense.user.id !== -1 && description && cost) {
       expense.description = description;
       const oldCost = expense.cost;
       expense.cost = cost;

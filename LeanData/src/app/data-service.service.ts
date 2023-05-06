@@ -61,10 +61,9 @@ export class DataService {
   
   updateExpense(updatedExpense: Expense, oldCost: number) {
     const users = this.usersSubject.getValue();
-    const user = users.find((u) => u.id === updatedExpense.userId);
+    const user = users.find((u) => u === updatedExpense.user);
     if (user) {
       user.totalExpense += (updatedExpense.cost - oldCost);
-      //this.updateUser(user);
     }
 
     const summary = this.summarySubject.getValue();
@@ -79,13 +78,16 @@ export class DataService {
     const users = this.usersSubject.getValue();
     const updatedUsers = users.filter((user) => {user !== deletedUser});
     this.usersSubject.next(updatedUsers);
-    //Todo: delete expense
+    //delete expense
     const expenses = this.expenseSubject.getValue();
     expenses.forEach((expense) => {
       if (expense.user === deletedUser) {
         this.deleteExpense(expense);
       }
     })
+    deletedUser.id = -1;
+    deletedUser.firstName = "";
+    deletedUser.lastName = "";
   }
 
   deleteExpense(expense: Expense) {
@@ -97,7 +99,7 @@ export class DataService {
     this.expenseSubject.next(updatedExpenses);
 
     const users = this.usersSubject.getValue();
-    const user = users.find((u) => u.id === expense.userId);
+    const user = users.find((u) => u === expense.user);
     if (user) {
       user.totalExpense -= expense.cost;
     }
@@ -128,7 +130,6 @@ export class User {
 
 export class Expense {
   expenseId: number;
-  userId: number;
   user: User;
   category: string;
   description: string;
@@ -141,7 +142,6 @@ export class Expense {
     cost: number
   ) {
     this.expenseId = expenseId;
-    this.userId = user.id;
     this.user = user;
     this.category = category;
     this.description = description;
