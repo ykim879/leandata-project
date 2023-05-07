@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import { switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -90,20 +90,17 @@ export class DataService {
     }
   }
 
-  deleteUser(userId: number) {
+  deleteUser(deletedUser: User) {
     const users = this.usersSubject.getValue();
-    const updatedUsers = users.filter((user) => {
-      if (user.id !== userId) {
-        return true;
-      } else {
-        user.firstName = '';
-        user.lastName = '';
-        user.id = -1;
-        return false;
-      }
-    });
+    const updatedUsers = users.filter((user) => {user !== deletedUser});
     this.usersSubject.next(updatedUsers);
     //Todo: delete expense
+    const expenses = this.expenseSubject.getValue();
+    expenses.forEach((expense) => {
+      if (expense.user === deletedUser) {
+        this.deleteExpense(expense);
+      }
+    })
   }
 
   deleteExpense(expense: Expense) {
@@ -147,22 +144,20 @@ export class User {
 export class Expense {
   expenseId: number;
   userId: number;
-  fullName: string;
+  user: User;
   category: string;
   description: string;
   cost: number;
-
   constructor(
     expenseId: number,
-    userId: number,
-    fullName: string,
+    user: User,
     category: string,
     description: string,
     cost: number
   ) {
     this.expenseId = expenseId;
-    this.userId = userId;
-    this.fullName = fullName;
+    this.userId = user.id;
+    this.user = user;
     this.category = category;
     this.description = description;
     this.cost = cost;

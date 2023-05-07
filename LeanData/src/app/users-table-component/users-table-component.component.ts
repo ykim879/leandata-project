@@ -42,13 +42,13 @@ export class UsersTableComponent implements OnInit {
     if (firstName && lastName) {
       user.firstName = firstName;
       user.lastName = lastName;
-      this.dataService.updateUser(user);
+      //this.dataService.updateUser(user);
     }
     firstNameInput.value = user.firstName;
     lastNameInput.value = user.lastName;
   }
 
   deleteUser(user: User) {
-    this.dataService.deleteUser(user.id);
+    this.dataService.deleteUser(user);
   }
 }

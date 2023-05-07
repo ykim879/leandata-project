@@ -42,7 +42,7 @@ export class ExpenseTableComponent  implements OnInit {
 
   addExpense() {
     if (this.currentUser.id !== -1 && this.cost && this.description.trim() && this.currentCategory.trim()) {
-      this.dataService.addExpense(new Expense(this.newExpenseId, this.currentUser.id, this.currentUser.firstName + " " + this.currentUser.lastName,
+      this.dataService.addExpense(new Expense(this.newExpenseId, this.currentUser,
       this.currentCategory, this.description, this.cost));
       this.newExpenseId += 1;
     } else {
