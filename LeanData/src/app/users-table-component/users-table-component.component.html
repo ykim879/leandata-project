@@ -2,21 +2,31 @@
   <ion-item-divider>
     <ion-label> Users </ion-label>
   </ion-item-divider>
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>First Name </ion-col>
+        <ion-col>Last Name</ion-col>
+        <ion-col>Total Expense</ion-col>
+        <ion-col></ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><input type="text" name="firstName" [(ngModel)]="firstName" required></ion-col>
+        <ion-col><input type="text" name="lastName" [(ngModel)]="lastName" required></ion-col>
+        <ion-col></ion-col>
+        <ion-col><ion-button (click)="addUser()">Add User</ion-button></ion-col>
+      </ion-row>
 
-    <ion-item>
-      <ion-grid>
+      <div *ngFor="let user of users; let i = index">
         <ion-row>
-          <ion-col>1</ion-col>
-          <ion-col>2</ion-col>
-          <ion-col>3</ion-col>
-          <ion-col><ion-button>Save</ion-button></ion-col>
+          <ion-col><ion-input value="{{user.firstName}}" #firstName/></ion-col>
+          <ion-col><ion-input value="{{user.lastName}}" #lastName></ion-input></ion-col>
+          <ion-col>{{user.totalExpense}}</ion-col>
+          <ion-col><ion-button (click)="editUser(user, firstName, lastName)">Edit User</ion-button></ion-col>
+          <ion-col><ion-button (click)="deleteUser(user)">Delete User</ion-button></ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>1</ion-col>
-          <ion-col>2</ion-col>
-          <ion-col>3</ion-col>
-          <ion-col><ion-button color = "danger">Delete</ion-button></ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+      </div>
+    </ion-grid>
+  </ion-item>
 </ion-item-group>

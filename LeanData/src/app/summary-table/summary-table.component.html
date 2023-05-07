@@ -1,0 +1,20 @@
+<ion-item-group>
+  <ion-item-divider>
+    <ion-label> Summary </ion-label>
+  </ion-item-divider>
+
+  <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>Category</ion-col>
+        <ion-col>Cost</ion-col>
+      </ion-row>
+      <ng-container *ngFor="let summary of summaries">
+        <ion-row>
+          <ion-col><ion-label>{{summary.categoryName}}</ion-label></ion-col>
+          <ion-col><ion-label>{{summary.totalCost}}</ion-label></ion-col>
+          </ion-row>
+          </ng-container>
+      </ion-grid>
+  </ion-item>
+  </ion-item-group>
