@@ -1,4 +1,4 @@
-# leandata-project
+# observable-angular-project
 The project is inside of LeanData folder. Do actions below in the folder
 ## Dependencies
 First, install Angular:
